@@ -17,8 +17,11 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Observable;
+
 public class HomeActivity extends AppCompatActivity {
 
+    //instatiate db reference
     DatabaseReference reference;
     private List<ChatMessage> chatMessages = new ArrayList<>();
 
@@ -28,11 +31,13 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //create database instance to insert new message
         reference = FirebaseDatabase.getInstance().getReference().child("messages/");
 
         ChatMessage sendMessage = new ChatMessage("Katrina",
                 "Is this working?", "03/26/2020");
 
+        //push new message to db
         String pushValue = reference.push().getKey();
         if (pushValue != null) {
 
@@ -43,6 +48,7 @@ public class HomeActivity extends AppCompatActivity {
             Log.d("TAG_K", "failed to push value");
         }
 
+        //listen for changes and update db
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
