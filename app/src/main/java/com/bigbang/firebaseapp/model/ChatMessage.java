@@ -19,8 +19,8 @@ public class ChatMessage {
     public String toString() {
         return "ChatMessage{" +
                 "messageUser='" + messageUser + '\'' +
-                ", messageContent='" + messageContent + '\'' +
                 ", messageTimeStamp='" + messageTimeStamp + '\'' +
+                ", messageContent='" + messageContent + '\'' +
                 '}';
     }
     public String getMessageUser() {

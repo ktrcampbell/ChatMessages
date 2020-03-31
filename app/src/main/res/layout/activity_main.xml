@@ -6,6 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".view.HomeActivity">
 
+    <FrameLayout
+        android:id="@+id/login_fragment_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="8dp"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chat_message_receyclerview"
         android:layout_width="0dp"

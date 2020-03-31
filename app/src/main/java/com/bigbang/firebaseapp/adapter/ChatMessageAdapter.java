@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bigbang.firebaseapp.R;
 import com.bigbang.firebaseapp.model.ChatMessage;
+import com.bigbang.firebaseapp.util.MainAppSingleton;
 
 import java.util.List;
 
@@ -17,6 +18,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.ChatMessageViewHolder>{
+
+    private static final int CURRENT_USER = 1;
+    private static final int OTHER_USER = 2;
 
     private List<ChatMessage>chatMessages;
 
@@ -27,11 +31,27 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
     @NonNull
     @Override
     public ChatMessageAdapter.ChatMessageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.send_message_layout, parent, false);
+        View view = null;
+        if(viewType == CURRENT_USER) {
+            view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.send_message_layout, parent, false);
+        }else{
+            view = LayoutInflater.from(parent.getContext())
+                    .inflate((R.layout.receive_message_layout),parent,false);
+        }
         return new ChatMessageViewHolder(view);
     }
 
+    public int getItemViewType(int position){
+        //if(chatMessages.get(position).getMessageUser().equals(userName)){
+        //use Singleton
+        if(chatMessages.get(position).getMessageUser().equals(MainAppSingleton.getInstance().getUserName())){
+            return CURRENT_USER;
+        }else{
+            return OTHER_USER;
+        }
+
+    }
     @Override
     public void onBindViewHolder(@NonNull ChatMessageAdapter.ChatMessageViewHolder holder, int position) {
 
